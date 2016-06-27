@@ -1,0 +1,204 @@
+#test{
+    display: flex;
+}
+#results{
+    background:#FFF;
+    width: 100%;
+    text-align: center;
+    border: 5px solid #FFF;
+    padding: 1em;
+    padding-top: 5%;
+}
+#error{
+    background:#FFF;
+    width: 100%;
+    text-align: center;
+    border: 5px solid #FFF;
+    padding: 1em;
+    padding-top: 5%;
+    height: 80vh;
+}
+#display{
+    padding-left: 1em;
+    padding-right: 1em;
+    height: 45vh;
+}
+div.navbar{
+    background-color: #181818;
+    height: 96px;
+    border-radius:0px;
+    padding:.5em;
+    padding-left: 16%;
+    margin: 0px;
+    position:fixed;
+    width: 100%;
+    z-index:5;
+}
+div.footer{
+    background-color: #181818;
+    height: 96px;
+    border-radius:0px;
+    padding-top: 2.4%;
+    padding-left: 16%;
+    padding-right: 16%;
+    margin: 0px;
+
+}
+div.container{
+    background:#282828;
+    width: 100%;
+    text-align: center;
+    border: 5px solid #282828;
+    padding: 1em;
+    padding-top: 8.5em;
+    padding-bottom: 2.5em;
+}
+div.form{
+    text-align: left;
+    width: 68%;
+}
+h1.dom{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 300;
+    color: #1db954;
+    float:left;
+}
+h1.tumbl{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+    color: #FFF;
+}
+h2.slogan{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+    color: #FFF;
+}
+h2.found{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+    color: #282828;
+}
+h3.light{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 300;
+    color: #FFF;
+    margin: 1px;
+}
+h3.select{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 300;
+    color: #282828;
+}
+button.get{
+    background:#1db954;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #FFF;
+    padding:.7em;
+    width:155px;
+    
+}
+input.review{
+    background:#1db954;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #FFF;
+    padding:.7em;
+    width:225px;    
+}
+input.review:hover{
+    background-color: #06ef59;
+}
+button:hover{
+    background-color: #06ef59;
+}
+a.direct{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+    color:#1db954;
+}
+a.direct:hover{
+    color:#FFF;
+}
+p.footer{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+    color: #a0a0a0;
+    text-align: left;
+}
+div.help{
+    color: #FFF;
+    font-family:Arial;
+    background:#404040;
+    border-color:#282828;
+    display:none;
+}
+.note{
+    font-weight: 400;
+    color:#404040;
+    display:none;
+}
+p{
+    font-family: Arial;
+    font-weight: 300;
+    color: #FFF;
+}
+a{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
+    color: #a0a0a0;
+}
+a:hover{
+    color:#1db954;    
+}
+label{
+    font-family: Arial;
+    font-weight: 300;
+    color: #FFF;
+    margin-right: 5px;
+}
+label.tld{
+    font-family: Arial;
+    font-weight: 300;
+    color: #FFF;
+    margin-right: 20px;
+}
+textarea{
+    resize:none;
+    width:100%;
+    padding: 1.3em;
+    font-family: Arial;
+    font-weight: 400;
+    font-size: 1.5em;
+    color: #000;
+}
+input[type=checkbox]{
+    display:none;
+}
+input[type=checkbox] + label {
+  background: #FFF;
+  height: 25px;
+  width: 25px;
+  display: block;
+  transition: box-shadow 0.4s, border 0.4s;
+  border: solid 1px #a0a0a0;
+  cursor: pointer;
+}
+input[type=checkbox] + label:hover {
+  border: solid 5px #1db954;
+}
+input[type=checkbox]:checked+label{
+    padding: 0px;
+    background-image: url(select.png);
+    border: 0px;
+}
+.form:hover .note{
+    display:block;
+}
+@media (max-width:575px){
+    #test{
+        display:inline-block;
+    }
+}
