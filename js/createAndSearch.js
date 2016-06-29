@@ -258,7 +258,6 @@ var routes = Backbone.Router.extend({
         $('#index').show();
         $('#terms').hide();
         $('#privacy').hide();
-        $('html,body').animate({scrollTop: $("#results").offset().top}, 'slow');
         search.setData(atob(data));
         search.results();
     }
