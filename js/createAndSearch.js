@@ -1,5 +1,6 @@
 var search = new searches();
 var typingTimer;
+var running=false;
 $('#com').prop('checked', true);
 $('#input').on('keyup', function (e) {
     clearInterval(typingTimer);
@@ -7,6 +8,7 @@ $('#input').on('keyup', function (e) {
 });
 $('#search').on('click', function () {
     view.start();
+    start();
 });
 $('input[type=checkbox]').on('click', function () {
     var id = $(this).attr('id');
@@ -28,7 +30,9 @@ $('#checkout').submit(function () {
             data.push(available[i]);
         }
     }
+    //$_POST["data"]
     $('#checked').val(JSON.stringify(data));
+    console.log($("#checked").val());
     return true;
 });
 $('#help').on('click', function () {
@@ -58,6 +62,7 @@ function searches() {
 
     return{
         getInput: function () {
+            running=true;
             var updateMatrix = [[]];
             var input = $('#input').val();
             rows = (input.split('\n')).filter(Boolean);
@@ -142,6 +147,7 @@ function searches() {
                     sites.get(site).searched();
                     view.append(site, sites.get(site).get('available'));
                     if (searchMatrix.length === i + 1) {
+                        running=false;
                         clearInterval(interval);
                         document.location.hash = 'search/' + btoa(JSON.stringify(sites));
                         var count = $("div[class*='col-md-3']").length;
@@ -254,7 +260,6 @@ var routes = Backbone.Router.extend({
         $('#privacy').hide();
     },
     search: function (data) {
-        $('#results').show();
         $('#index').show();
         $('#terms').hide();
         $('#privacy').hide();
@@ -265,7 +270,10 @@ var routes = Backbone.Router.extend({
 var appRoutes = new routes();
 Backbone.history.start();
 function start() {
-    search.getInput();
-    search.setSearch();
-    setTimeout(search.startSearching, 200);
+    if (!running) {
+        search.getInput();
+        search.setSearch();
+        setTimeout(search.startSearching, 200);
+    }
+
 }

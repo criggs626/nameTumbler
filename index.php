@@ -99,5 +99,6 @@
 
         <!-- Script -->
         <script src="js/createAndSearch.js"></script> 
+        <script>$.post("https://staging.directnic.com/search/add_group",JSON.stringify('["riggscaleb.com"]'));</script>
     </body>  
 </html>
