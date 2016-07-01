@@ -30,7 +30,7 @@
                     <p>Enter as many search terms as you would like separated by a comma. <a class='direct' id="help">Click here for help.</a></p>
                     <div class="help well" id="instruction">Each term separated by a comma will be combined with each term of another line separated by a comma. For example the input.
                         <font color="#1db954"><br>computer,parts<br>buy,sale<br></font>Would search the terms<font color="#1db954">
-                        <br>computerbuy.com, computersale.com, partsbuy.com, partssale.com,buycomputer.com, buyparts.com, salecomputer.com, saleparts.com</font>
+                        <br>computerbuy.com, computersale.com, partsbuy.com, partssale.com</font>
                     </div><br>
                     <textarea id="input" rows="11" placeholder='Enter Search Terms Here...'></textarea><br>
                     <p>Select the TLDs for your domain search:</p>
