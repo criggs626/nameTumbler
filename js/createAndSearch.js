@@ -1,6 +1,6 @@
 var search = new searches();
 var typingTimer;
-var running=false;
+var running = false;
 $('#com').prop('checked', true);
 $('#input').on('keyup', function (e) {
     clearInterval(typingTimer);
@@ -30,7 +30,7 @@ $('#checkout').submit(function () {
             data.push(available[i]);
         }
     }
-    //$_POST["data"]
+    //PHP will receive $_POST["data"]
     $('#checked').val(JSON.stringify(data));
     console.log($("#checked").val());
     return true;
@@ -59,10 +59,10 @@ function searches() {
     var sites = new siteCollection();
     var newVisit = new siteCollection();
     var reset = false;
+    var prevLength;
 
     return{
         getInput: function () {
-            running=true;
             var updateMatrix = [[]];
             var input = $('#input').val();
             rows = (input.split('\n')).filter(Boolean);
@@ -90,6 +90,7 @@ function searches() {
         },
         setSearch: function () {
             if (matrix.length === 1) {
+                search.reset();
                 reset = true;
                 for (var i = 0; i < matrix[0].length; i++) {
                     for (var j = 0; j < tlds.length; j++) {
@@ -108,35 +109,44 @@ function searches() {
                     }
                     sites.reset();
                     reset = false;
+                } else if (matrix.length !== prevLength) {
+                    console.log('stuff');
+                    search.reset();
                 }
-                for (var i = 0; i < matrix.length; i++) {
-                    for (var j = 0; j < matrix[i].length; j++) {
-                        var item = matrix[i][j];
-                        var start = i;
-                        for (var k = 0; k < matrix.length; k++) {
-                            if (start !== k) {
-                                for (var l = 0; l < matrix[k].length; l++) {
-                                    for (var m = 0; m < tlds.length; m++) {
-                                        if (item !== matrix[k][l]) {
-                                            var final = item.replace(/ /g, '') + matrix[k][l].replace(/ /g, '') + tlds[m];
-                                            if (!sites.get(final)) {
-                                                sites.add({'id': final});
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                prevLength = matrix.length;
+                tempSearch = [];
+                var tempSearch = getCombinations(matrix);
+                for (var i = 0; i < tlds.length; i++) {
+                    for (var j = 0; j < tempSearch.length; j++) {
+                        var final = tempSearch[j] + tlds[i];
+                        if (!sites.get(final)) {
+                            sites.add({'id': final});
                         }
                     }
                 }
             }
-        },
+            function getCombinations(array, prefix) {
+                prefix = prefix || '';
+                if (!array.length) {
+                    return prefix;
+                }
+
+                var result = array[0].reduce(function (result, value) {
+                    return result.concat(getCombinations(array.slice(1), prefix + value));
+                }, []);
+                return result;
+            }}
+        ,
         startSearching: function () {
             var i = 0;
             var searchMatrix = new siteCollection(sites.where({searched: false}));
             searchMatrix = searchMatrix.pluck('id');
+            console.log(searchMatrix);
             if (searchMatrix.length > 0) {
                 interval = setInterval(checkSite, 550);
+            }
+            else{
+                running=false;
             }
             function checkSite() {
                 site = searchMatrix[i];
@@ -147,7 +157,7 @@ function searches() {
                     sites.get(site).searched();
                     view.append(site, sites.get(site).get('available'));
                     if (searchMatrix.length === i + 1) {
-                        running=false;
+                        running = false;
                         clearInterval(interval);
                         document.location.hash = 'search/' + btoa(JSON.stringify(sites));
                         var count = $("div[class*='col-md-3']").length;
@@ -159,7 +169,8 @@ function searches() {
                     i++;
                 }, 'json');
             }
-        },
+        }
+        ,
         remove: function (data) {
             var searchTotal = sites.pluck('id');
             for (var i = 0; i < searchTotal.length; i++) {
@@ -169,6 +180,15 @@ function searches() {
                     }
                     sites.remove(searchTotal[i]);
                 }
+            }
+        },
+        reset: function (data) {
+            var searchTotal = sites.pluck('id');
+            for (var i = 0; i < searchTotal.length; i++) {
+                for (var j = 0; j < 5; j++) {
+                    view.adjust(searchTotal[i]);
+                }
+                sites.remove(searchTotal[i]);
             }
         },
         addTLD: function (data) {
@@ -271,6 +291,7 @@ var appRoutes = new routes();
 Backbone.history.start();
 function start() {
     if (!running) {
+        running=true;
         search.getInput();
         search.setSearch();
         setTimeout(search.startSearching, 200);
