@@ -32,7 +32,6 @@ $('#checkout').submit(function () {
     }
     //PHP will receive $_POST["data"]
     $('#checked').val(JSON.stringify(data));
-    console.log($("#checked").val());
     return true;
 });
 $('#help').on('click', function () {
@@ -110,7 +109,6 @@ function searches() {
                     sites.reset();
                     reset = false;
                 } else if (matrix.length !== prevLength) {
-                    console.log('stuff');
                     search.reset();
                 }
                 prevLength = matrix.length;
@@ -141,7 +139,6 @@ function searches() {
             var i = 0;
             var searchMatrix = new siteCollection(sites.where({searched: false}));
             searchMatrix = searchMatrix.pluck('id');
-            console.log(searchMatrix);
             if (searchMatrix.length > 0) {
                 interval = setInterval(checkSite, 550);
             }
@@ -150,7 +147,7 @@ function searches() {
             }
             function checkSite() {
                 site = searchMatrix[i];
-                $.post(('https://test3rdparty.directnic.com/domain/search/' + site), function (data) {
+                $.post(('https://3rdparty.directnic.com/domain/search/' + site), function (data) {
                     if (data[site] === 1) {
                         sites.get(site).setAvailable();
                     }
@@ -223,6 +220,9 @@ function searches() {
                     }
                 }
             }
+        },
+        set:function(data){
+            sites.get(data).setAvailable();
         },
         get: function () {
             return sites;
