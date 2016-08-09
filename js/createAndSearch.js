@@ -141,13 +141,13 @@ function searches() {
             searchMatrix = searchMatrix.pluck('id');
             if (searchMatrix.length > 0) {
                 interval = setInterval(checkSite, 550);
-            }
-            else{
-                running=false;
+            } else {
+                running = false;
             }
             function checkSite() {
                 site = searchMatrix[i];
-                $.post(('https://3rdparty.directnic.com/domain/search/' + site), function (data) {
+                $.post(('//test3rdparty.directnic.com/domain/search/?url=' + site), function (data) {
+                    data=JSON.parse(data.substring(data.indexOf("{"),data.length));
                     if (data[site] === 1) {
                         sites.get(site).setAvailable();
                     }
@@ -164,7 +164,7 @@ function searches() {
                         i = 0;
                     }
                     i++;
-                }, 'json');
+                });
             }
         }
         ,
@@ -221,7 +221,7 @@ function searches() {
                 }
             }
         },
-        set:function(data){
+        set: function (data) {
             sites.get(data).setAvailable();
         },
         get: function () {
@@ -291,7 +291,7 @@ var appRoutes = new routes();
 Backbone.history.start();
 function start() {
     if (!running) {
-        running=true;
+        running = true;
         search.getInput();
         search.setSearch();
         setTimeout(search.startSearching, 200);
