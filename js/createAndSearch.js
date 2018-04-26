@@ -22,18 +22,7 @@ $('input[type=checkbox]').on('click', function () {
         }
     }
 });
-$('#checkout').submit(function () {
-    var data = [];
-    var available = search.getAvailable();
-    for (var i = 0; i < available.length; i++) {
-        if ($('#' + available[i].replace('.', '\\.')).prop('checked')) {
-            data.push(available[i]);
-        }
-    }
-    //PHP will receive $_POST["data"]
-    $('#checked').val(JSON.stringify(data));
-    return true;
-});
+
 $('#help').on('click', function () {
     $('#instruction').slideToggle();
 });
@@ -146,9 +135,9 @@ function searches() {
             }
             function checkSite() {
                 site = searchMatrix[i];
-                $.post(('//test3rdparty.directnic.com/domain/search/?url=' + site), function (data) {
-                    data=JSON.parse(data.substring(data.indexOf("{"),data.length));
-                    if (data[site] === 1) {
+                $.post(('http://api.whoapi.com/?domain='+ site +'&r=taken&apikey=8ff1c8ca332e229698b337fdda553064'), function (data) {
+//                    data=JSON.parse(data.substring(data.indexOf("{"),data.length));
+                    if (data.taken == 0) {
                         sites.get(site).setAvailable();
                     }
                     sites.get(site).searched();
