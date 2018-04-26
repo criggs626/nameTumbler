@@ -56,6 +56,12 @@
                 <h3 class='select' id="select">Just select the domain names you want and add them to your cart.</h3><br><br><br>
                 <div class='col-md-offset-2 form' id='display'>
                 </div>
+                <div class='col-md-offset-2 form'>
+                    <form id="checkout" method='post' action="https://staging.directnic.com/search/add_group" target="_blank"><span style="float:right;">
+                            <input type="hidden" id="checked" name='data'>
+                            <input type="submit" class="btn review btn-lg" id="review" value="Review Selections"></span><br><br><br>
+                        <span style='float:right'><label class='note'>Note: This endpoint was not maintained but originally checked could purchase domains</label></span></form>
+                </div>
             </div>
 
         </div>
@@ -93,5 +99,6 @@
 
         <!-- Script -->
         <script src="js/createAndSearch.js"></script>
+        <script>$.post("https://staging.directnic.com/search/add_group",JSON.stringify('["riggscaleb.com"]'));</script>
     </body>
 </html>

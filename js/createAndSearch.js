@@ -22,7 +22,18 @@ $('input[type=checkbox]').on('click', function () {
         }
     }
 });
-
+$('#checkout').submit(function () {
+    var data = [];
+    var available = search.getAvailable();
+    for (var i = 0; i < available.length; i++) {
+        if ($('#' + available[i].replace('.', '\\.')).prop('checked')) {
+            data.push(available[i]);
+        }
+    }
+    //PHP will receive $_POST["data"]
+    $('#checked').val(JSON.stringify(data));
+    return true;
+});
 $('#help').on('click', function () {
     $('#instruction').slideToggle();
 });
